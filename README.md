@@ -1,2 +1,3 @@
 # UniviewSN1987a
-Uniview module for SN 19871
+
+Simple Uniview module for SN1987a
