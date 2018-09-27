@@ -2,6 +2,7 @@ uniform float uv_fade;
 uniform mat4 uv_modelViewInverseMatrix;
 
 uniform sampler2D cmap;
+uniform float SNAlpha;
 
 in vec2 texcoord;
 in vec3 color;
@@ -76,8 +77,7 @@ void main()
 	vec3 cm = texture(cmap ,vec2(clamp(dist*0.5 + 0.5,0.1,1),0.5)).rgb;
     //fragColor = vec4(color, 1.);
     fragColor = vec4(cm, 1.);
-    fragColor.a *= uv_fade;
- 	fragColor.a *= exp(-0.5*dist/0.1);
+ 	fragColor.a *= exp(-0.5*dist/0.1) * uv_fade * SNAlpha;
 
 	if (fTime > fMaxT){
 		float fac = clamp(1./pow(1 + (fTime - fMaxT), 2.), 0, 1.);
@@ -101,6 +101,7 @@ void main()
 	// Accumulate total noise
 	float n =clamp(n1 - ss + 0.7, 0, 1)*5.;
 	fragColor *= n;
+	
 	
 	//fragColor = vec4(cm,1);
 

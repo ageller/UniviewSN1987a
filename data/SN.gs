@@ -63,7 +63,7 @@ void main()
 
 	if (eventTime >= 0){
 
-		//simple explosion for kilonova
+		//simple explosion
 		color = vec3(1,1,0);
 		vec4 pos = vec4(xb, 1.);
 		float rad = SNRadMax*clamp(1. - (SNTimeMax - eventTime)/SNTimeMax, 0, 1.);
