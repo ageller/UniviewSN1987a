@@ -18,7 +18,7 @@ void main()
 	float dist = length(texcoord);
 	fragColor.a *= dist * uv_fade;
 
-	if ( toDraw > 1){
+	if ( (toDraw > 1 && toDraw < 1.5)){
 		fragColor.a = 0.;
 	}
 
