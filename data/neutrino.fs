@@ -6,8 +6,6 @@ uniform float neutrinoColorP;
 uniform float neutrinoAlpha;
 
 in vec2 texcoord;
-in vec3 color;
-in float toDraw;
 
 out vec4 fragColor;
 
@@ -18,8 +16,5 @@ void main()
 	float dist = length(texcoord);
 	fragColor.a *= dist * uv_fade;
 
-	if ( (toDraw > 1 && toDraw < 1.5)){
-		fragColor.a = 0.;
-	}
 
 }
