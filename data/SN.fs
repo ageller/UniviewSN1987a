@@ -99,7 +99,7 @@ void main()
 	float ss = (max(t1 * t2, threshold) - threshold) ;
 
 	// Accumulate total noise
-	float n =clamp(n1 - ss + 0.7, 0, 1)*5.;
+	float n =clamp(n1 - ss + 0.7, 0, 1)*5. + 1.0;
 	fragColor *= n;
 	
 	

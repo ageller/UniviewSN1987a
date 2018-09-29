@@ -8,6 +8,7 @@ uniform float uv_simulationtimeSeconds;
 
 uniform float eventTime;
 uniform float SNRadMax;
+uniform float SNTimeMin;
 uniform float SNTimeMax;
 
 out vec2 texcoord;
@@ -61,12 +62,12 @@ void main()
 	color = vec3(0);
 	vec3 xb = vec3(gl_in[0].gl_Position.x, gl_in[0].gl_Position.y, gl_in[0].gl_Position.z); //and it is also apparently necessary to access the data??
 
-	if (eventTime >= 0){
+	if (eventTime >= SNTimeMin){
 
 		//simple explosion
 		color = vec3(1,1,0);
 		vec4 pos = vec4(xb, 1.);
-		float rad = SNRadMax*clamp(1. - (SNTimeMax - eventTime)/SNTimeMax, 0, 1.);
+		float rad = SNRadMax*clamp(1. - (SNTimeMax - eventTime)/(SNTimeMax - SNTimeMin), 0, 1.);
 		drawSprite(pos, rad, 0);
 		
 	}
