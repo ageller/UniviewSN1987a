@@ -3,6 +3,7 @@ uniform mat4 uv_modelViewInverseMatrix;
 
 uniform sampler2D cmap;
 uniform float SNAlpha;
+uniform float SNFadeFac;
 
 in vec2 texcoord;
 in vec3 color;
@@ -79,13 +80,15 @@ void main()
     fragColor = vec4(cm, 1.);
  	fragColor.a *= exp(-0.5*dist/0.1) * uv_fade * SNAlpha;
 
+	float noiseTime = fTime*0.002;
 	if (fTime > fMaxT){
-		float fac = clamp(1./pow(1 + (fTime - fMaxT), 2.), 0, 1.);
+		float fac = clamp(1./pow(1 + (fTime - fMaxT), 2.)*SNFadeFac, 0, 1.);
 		fragColor.a *= fac; //overall fade
+		//noiseTime /= SNFadeFac;
 	}
 	
 	//noise
-	vec3 pNorm = 10.*vec3(texcoord, fTime*0.002);
+	vec3 pNorm = 10.*vec3(texcoord, noiseTime);
 
 	//fractal noise (can play with these)
 	float n1 = noise(pNorm, 7, 3., 0.7, 1); 
@@ -99,7 +102,7 @@ void main()
 	float ss = (max(t1 * t2, threshold) - threshold) ;
 
 	// Accumulate total noise
-	float n =clamp(n1 - ss + 0.7, 0, 1)*5. + 1.0;
+	float n = clamp(n1 - ss + 0.7, 0, 1)*5. + 1.0;
 	fragColor *= n;
 	
 	
