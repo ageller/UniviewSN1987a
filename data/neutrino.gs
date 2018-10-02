@@ -4,7 +4,9 @@ layout(line_strip, max_vertices=3) out;
 uniform mat4 uv_modelViewProjectionMatrix;
 uniform mat4 uv_modelViewProjectionInverseMatrix;
 
-uniform float eventTime;
+uniform sampler2D stateTexture;
+
+//uniform float eventTime;
 uniform float neutrinoRadMax;
 uniform float neutrinoTimeMax;
 uniform float neutrinoLength;
@@ -14,6 +16,8 @@ out vec2 texcoord;
 
 void main()
 {
+	float eventTime = texture(stateTexture, vec2(0.5)).r;	
+	
 	//simple explosion
 	float rad = neutrinoRadMax*(1. - (neutrinoTimeMax - eventTime)/neutrinoTimeMax);
 	float  j = 0;
